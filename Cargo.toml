@@ -1,0 +1,38 @@
+[package]
+name = "spotigod"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+# HTTP client para la API de Spotify
+reqwest = { version = "0.11", features = ["json"] }
+# Serialización/deserialización JSON
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+# Manejo asíncrono
+tokio = { version = "1.0", features = ["full"] }
+# TUI (Terminal User Interface)
+ratatui = "0.26"
+crossterm = "0.27"
+# Base64 para autenticación
+base64 = "0.21"
+# URL parsing
+url = "2.4"
+# Manejo de errores
+anyhow = "1.0"
+# Configuración
+config = "0.14"
+# Directorio home
+dirs = "5.0"
+# Colores en terminal
+colored = "2.0"
+# Regex
+regex = "1.10"
+# Tiempo
+chrono = { version = "0.4", features = ["serde"] }
+# UUID para state en OAuth
+uuid = { version = "1.0", features = ["v4"] }
+# URL encoding
+urlencoding = "2.1"
+# Abrir navegador
+webbrowser = "0.8" 

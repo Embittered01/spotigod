@@ -1,0 +1,26 @@
+# Archivos de configuración de Spotify
+config.json
+.env
+
+# Archivos de Rust
+/target/
+**/*.rs.bk
+Cargo.lock
+
+# Archivos del sistema
+.DS_Store
+Thumbs.db
+
+# Archivos de IDE y editores
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# Archivos de logs
+*.log
+
+# Archivos de caché
+.cargo/
+.rustc_info.json 
