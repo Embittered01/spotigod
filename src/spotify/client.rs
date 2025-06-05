@@ -1,4 +1,4 @@
-use super::models::{TokenResponse, PlaybackState, SearchResults, UserProfile, PlaylistsResponse, Track, SavedTracksResponse, PlaylistTracksResponse};
+use super::models::{TokenResponse, PlaybackState, SearchResults, PlaylistsResponse, Track, SavedTracksResponse};
 use crate::config::Config;
 use anyhow::{anyhow, Result};
 use base64::{Engine as _, engine::general_purpose::STANDARD as Base64};
@@ -346,23 +346,6 @@ impl SpotifyClient {
         }
     }
 
-    pub async fn get_user_profile(&mut self) -> Result<UserProfile> {
-        let auth_header = self.get_auth_header().await?;
-        
-        let response = self.client
-            .get(&format!("{}/me", self.base_url))
-            .header("Authorization", auth_header)
-            .send()
-            .await?;
-
-        if response.status().is_success() {
-            let profile: UserProfile = response.json().await?;
-            Ok(profile)
-        } else {
-            Err(anyhow!("Error al obtener perfil de usuario: {}", response.status()))
-        }
-    }
-
     pub async fn get_user_playlists(&mut self) -> Result<Vec<crate::spotify::models::Playlist>> {
         let auth_header = self.get_auth_header().await?;
         
@@ -394,23 +377,6 @@ impl SpotifyClient {
             Ok(saved_tracks.items.into_iter().map(|item| item.track).collect())
         } else {
             Err(anyhow!("Error al obtener canciones favoritas: {}", response.status()))
-        }
-    }
-
-    pub async fn get_playlist_tracks(&mut self, playlist_id: &str) -> Result<Vec<Track>> {
-        let auth_header = self.get_auth_header().await?;
-        
-        let response = self.client
-            .get(&format!("{}/playlists/{}/tracks?limit=50", self.base_url, playlist_id))
-            .header("Authorization", auth_header)
-            .send()
-            .await?;
-
-        if response.status().is_success() {
-            let playlist_tracks: PlaylistTracksResponse = response.json().await?;
-            Ok(playlist_tracks.items.into_iter().filter_map(|item| item.track).collect())
-        } else {
-            Err(anyhow!("Error al obtener canciones de la playlist: {}", response.status()))
         }
     }
 
